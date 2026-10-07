@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Autunno F1 2026 · Trento DOC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#E10600;
+  --gold:#C4922A;
+  --ribbon:#15151E;
+  --bg:#F4F4F4;
+  --surface:#FFFFFF;
+  --surface2:#F0F0F0;
+  --border:#E4E4E4;
+  --text:#15151E;
+  --muted:#6B6B6B;
+  --dim:#AAAAAA;
+}
+body{background:var(--bg);color:var(--text);font-family:'Titillium Web',sans-serif;max-width:480px;margin:0 auto;min-height:100vh;}
+
+/* RIBBON */
+.ribbon{
+  background:var(--ribbon);
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.018) 0,rgba(255,255,255,0.018) 1px,transparent 1px,transparent 12px);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:3px solid var(--red);
+}
+.logo{width:44px;height:44px;object-fit:contain;flex-shrink:0;}
+.ribbon-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:0.8px;text-transform:uppercase;}
+.ribbon-season{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1px;margin-top:1px;}
+
+/* TABS */
+.tabs{
+  display:flex;background:var(--ribbon);
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.018) 0,rgba(255,255,255,0.018) 1px,transparent 1px,transparent 12px);
+  position:sticky;top:0;z-index:100;
+  border-bottom:1px solid #2a2a35;overflow-x:auto;
+}
+.tab{flex:1;padding:12px 4px 10px;font-size:11px;font-weight:700;text-align:center;color:rgba(255,255,255,0.35);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;min-width:70px;text-transform:uppercase;letter-spacing:0.8px;font-family:'Titillium Web',sans-serif;}
+.tab.active{color:#fff;border-bottom-color:var(--red);}
+.tab:hover:not(.active){color:rgba(255,255,255,0.6);}
+
+/* PANELS */
+.panel{display:none;padding:14px;}
+.panel.active{display:block;}
+
+/* SECTION */
+.sec{font-size:9px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin:18px 0 8px;}
+.sec:first-child{margin-top:0;}
+
+/* CARD */
+.card{background:var(--surface);border-radius:4px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden;}
+
+/* GP HERO — keeps dark style for drama */
+.hero{
+  background:var(--ribbon);
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.025) 0,rgba(255,255,255,0.025) 1px,transparent 1px,transparent 12px);
+  padding:16px;position:relative;border-bottom:3px solid var(--red);
+}
+.hero-lbl{font-size:9px;font-weight:700;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.hero-name{font-size:22px;font-weight:900;color:#fff;letter-spacing:0.5px;text-transform:uppercase;line-height:1.1;margin-bottom:12px;}
+.pills{display:flex;gap:6px;flex-wrap:wrap;}
+.pill{font-size:10px;padding:3px 9px;font-weight:700;letter-spacing:0.3px;font-family:'Titillium Web',sans-serif;}
+.pill-dk{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);}
+.pill-pu{background:#6B2FBE;color:#fff;}
+.pill-red{background:var(--red);color:#fff;}
+
+/* PODIUM */
+.podium{display:flex;justify-content:center;align-items:flex-end;gap:3px;padding:16px 12px 0;background:var(--surface);}
+.pod{text-align:center;flex:1;}
+.pod-name{font-size:11px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:1px;text-transform:uppercase;letter-spacing:0.2px;}
+.pod-team{font-size:9px;color:var(--muted);margin-bottom:6px;}
+.pod-blk{border-radius:2px 2px 0 0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;}
+.pod-blk.p1{height:82px;background:var(--gold);color:#fff;}
+.pod-blk.p2{height:60px;background:#888;color:#fff;}
+.pod-blk.p3{height:46px;background:#A0522D;color:#fff;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{padding:7px 10px;font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1px;text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;background:var(--surface2);}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:var(--surface2);}
+
+.pn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:2px;font-size:10px;font-weight:700;background:#EEE;color:var(--muted);}
+.pn.p1{background:var(--gold);color:#fff;}
+.pn.p2{background:#888;color:#fff;}
+.pn.p3{background:#A0522D;color:#fff;}
+.pn.rit{background:#FEE2E2;color:var(--red);font-size:8px;}
+
+.ptsbdg{display:inline-block;padding:2px 8px;font-size:11px;font-weight:700;letter-spacing:0.3px;}
+.ptsbdg.race{background:var(--ribbon);color:#fff;}
+.ptsbdg.spr{background:var(--gold);color:#fff;}
+.ptsbdg.z{background:#F0F0F0;color:var(--dim);}
+
+.fldot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9B30FF;margin-left:4px;vertical-align:middle;}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;flex-shrink:0;}
+
+/* STANDINGS */
+.srow{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);gap:10px;}
+.srow:last-child{border-bottom:none;}
+.srow:hover{background:var(--surface2);}
+.srow.cl{cursor:pointer;}
+.spos{font-size:12px;font-weight:700;min-width:22px;text-align:right;color:var(--dim);}
+.spos.p1{color:var(--gold);}
+.spos.p2{color:#888;}
+.spos.p3{color:#A0522D;}
+.sname{font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.2px;}
+.steam{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-top:1px;}
+.spts{font-size:17px;font-weight:900;color:var(--text);min-width:38px;text-align:right;}
+.slbl{font-size:8px;color:var(--dim);text-align:right;letter-spacing:1px;text-transform:uppercase;}
+.sdelta{font-size:10px;color:var(--dim);text-align:right;min-width:32px;font-weight:600;}
+.wc{font-size:8px;padding:1px 5px;background:#FFF3CD;color:#856404;font-weight:700;vertical-align:middle;margin-left:3px;}
+.tstripe{width:3px;height:36px;flex-shrink:0;}
+
+/* STATS CARDS */
+.sgrid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.sc{background:var(--surface);border:1px solid var(--border);padding:12px 14px;}
+.sc-lbl{font-size:9px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.sc-val{font-size:22px;font-weight:900;color:var(--text);}
+.sc-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.prog{height:2px;background:var(--border);margin:8px 0 2px;}
+.prog-f{height:100%;background:var(--red);}
+
+/* SEASON GRID */
+.gw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.gtbl{border-collapse:collapse;font-size:10px;white-space:nowrap;}
+.gtbl th{padding:6px 7px;font-size:8px;color:var(--dim);font-weight:700;border-bottom:1px solid var(--border);text-align:center;background:var(--surface2);letter-spacing:0.8px;text-transform:uppercase;}
+.gtbl th.pc{text-align:left;position:sticky;left:0;background:var(--surface2);z-index:2;border-right:1px solid var(--border);min-width:95px;}
+.gtbl td{padding:5px 7px;border-bottom:1px solid var(--border);text-align:center;}
+.gtbl td.pc{font-size:11px;font-weight:700;position:sticky;left:0;background:var(--surface);z-index:1;border-right:1px solid var(--border);cursor:pointer;color:var(--text);text-align:left;text-transform:uppercase;letter-spacing:0.2px;}
+.gtbl td.pc:hover{background:var(--surface2);}
+.gtbl tr:hover td{background:#FAFAFA;}
+.gtbl tr:hover td.pc{background:var(--surface2);}
+.g1{background:rgba(196,146,42,0.18);color:#8A6010;font-weight:800;padding:1px 4px;display:inline-block;}
+.g2{background:rgba(136,136,136,0.15);color:#555;font-weight:700;padding:1px 4px;display:inline-block;}
+.g3{background:rgba(160,82,45,0.13);color:#8A4010;font-weight:700;padding:1px 4px;display:inline-block;}
+.gr{background:rgba(225,6,0,0.08);color:var(--red);font-weight:600;padding:1px 4px;display:inline-block;font-size:8px;}
+.gs{color:var(--gold);font-weight:700;}
+.gn{color:#CCC;}
+
+/* CALENDAR */
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.rcell{background:var(--surface);padding:7px 5px;text-align:center;border:1px solid var(--border);}
+.rcell.done{border-color:#BBB;cursor:pointer;}
+.rcell.done:hover{background:var(--surface2);}
+.rcell.nxt{border-color:var(--red);background:rgba(225,6,0,0.03);}
+.rcell.up{opacity:0.38;}
+.rn{font-size:8px;color:var(--dim);font-weight:700;}
+.rg{font-size:9px;font-weight:700;margin:2px 0;color:var(--text);text-transform:uppercase;letter-spacing:0.2px;}
+.rd{font-size:8px;color:var(--muted);}
+.rw{font-size:8px;font-weight:700;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rnl{font-size:7px;color:var(--red);font-weight:800;letter-spacing:1px;text-transform:uppercase;}
+
+/* GP LIST */
+.gpitem{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;gap:12px;}
+.gpitem:last-child{border-bottom:none;}
+.gpitem:hover{background:var(--surface2);}
+.gpbdg{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0;}
+.gpbdg.rc{background:var(--ribbon);color:#fff;}
+.gpbdg.sp{background:var(--gold);color:#fff;}
+
+/* DRIVER DETAIL */
+.drvhdr{background:var(--ribbon);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.02) 0,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 12px);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--red);}
+.drvatr{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;}
+.drvname{font-size:17px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.5px;}
+.drvteam{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;}
+.backbtn{background:none;border:none;color:rgba(255,255,255,0.6);font-size:22px;cursor:pointer;padding:0;line-height:1;}
+.backbar{width:100%;padding:11px;background:var(--ribbon);color:rgba(255,255,255,0.7);border:none;font-weight:700;font-size:12px;cursor:pointer;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-family:'Titillium Web',sans-serif;}
+.backbar:hover{color:#fff;}
+.chev{flex-shrink:0;margin-left:4px;}
+</style>
+</head>
+<body>
+
+<!-- RIBBON F1 STYLE -->
+<div class="ribbon">
+  <img class="logo" src="data:image/png;base64,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" alt="Trento DOC">
+  <div>
+    <div class="ribbon-title">Autunno F1 2026</div>
+    <div class="ribbon-season">Trento DOC · Campionato Online</div>
+  </div>
+</div>
+
+<!-- TABS F1 STYLE -->
+<div class="tabs">
+  <button class="tab active" onclick="showTab('gp',this)">🏁 GP</button>
+  <button class="tab" onclick="showTab('classifica',this)">📊 Class.</button>
+  <button class="tab" onclick="showTab('stagione',this)">📅 Stagione</button>
+  <button class="tab" onclick="showTab('piloti',this)">👤 Piloti</button>
+</div>
+
+<!-- TAB GP -->
+<div id="tab-gp" class="panel active">
+  <div id="gp-list-view">
+    <div class="sec">Gare disputate — tocca per l'arrivo</div>
+    <div class="card"><div id="gp-list"></div></div>
+  </div>
+  <div id="gp-detail-view" style="display:none;"></div>
+</div>
+
+<!-- TAB CLASSIFICA -->
+<div id="tab-classifica" class="panel">
+  <div class="sec">Classifica piloti</div>
+  <div class="card"><div id="drv-std"></div></div>
+  <div class="sec">Classifica costruttori</div>
+  <div class="card"><div id="ctr-std"></div></div>
+</div>
+
+<!-- TAB STAGIONE -->
+<div id="tab-stagione" class="panel">
+  <div class="sgrid2">
+    <div class="sc"><div class="sc-lbl">Gare disputate</div><div class="sc-val">3</div><div class="sc-sub">su 24 (+1 sprint)</div><div class="prog"><div class="prog-f" style="width:12%"></div></div></div>
+    <div class="sc"><div class="sc-lbl">Leader</div><div class="sc-val" style="font-size:13px;margin-top:4px">Chiatto1993</div><div class="sc-sub">54 pti · 2 vittorie</div></div>
+    <div class="sc"><div class="sc-lbl">Team leader</div><div class="sc-val" style="font-size:13px;margin-top:4px">Oracle RBR</div><div class="sc-sub">79 punti</div></div>
+    <div class="sc"><div class="sc-lbl">Prossima</div><div class="sc-val" style="font-size:13px;margin-top:4px">Giappone</div><div class="sc-sub">20 ott · No sprint</div></div>
+  </div>
+  <div class="sec">Andamento stagione — tocca un pilota per la scheda</div>
+  <div class="card"><div class="gw"><table class="gtbl" id="season-grid"></table></div></div>
+  <div class="sec">Calendario — tocca una gara completata per l'arrivo</div>
+  <div class="card"><div style="padding:10px;" id="cal-grid"></div></div>
+</div>
+
+<!-- TAB PILOTI -->
+<div id="tab-piloti" class="panel">
+  <div id="piloti-list-view">
+    <div class="sec">Seleziona un pilota</div>
+    <div class="card"><div id="piloti-list"></div></div>
+  </div>
+  <div id="piloti-detail-view" style="display:none;"></div>
+</div>
+
+<script>
+const TC={"Oracle Red Bull Racing":"#3671C6","Ferrari":"#E8002D","McLaren":"#FF8000","Mercedes":"#00D2BE","Alpine":"#FF87BC","Racing Bulls":"#6692FF","Haas":"#B6BABD","Williams":"#64C4FF","Aston Martin":"#229971","Cadillac":"#555","Audi":"#BB0A21","Wild Card":"#C4922A"};
+const tc=t=>TC[t]||"#888";
+const ini=n=>n.slice(0,2).toUpperCase();
+const pcls=p=>p===1?"p1":p===2?"p2":p===3?"p3":p==="RIT"?"rit":"";
+
+const DM=[
+  {n:"Chiatto1993",s:"Oracle Red Bull Racing",wc:false},
+  {n:"Lillo1990",s:"Ferrari",wc:false},
+  {n:"YopGodIy",s:"Cadillac",wc:false},
+  {n:"G_OLEG1902",s:"Haas",wc:false},
+  {n:"VVR_Kiro77",s:"McLaren",wc:false},
+  {n:"ilMilton",s:"Alpine",wc:false},
+  {n:"JustDouble_J",s:"Haas",wc:false},
+  {n:"VVR_MisterRed",s:"Racing Bulls",wc:false},
+  {n:"Millur139",s:"Oracle Red Bull Racing",wc:false},
+  {n:"VVR_Skikky666",s:"Mercedes",wc:false},
+  {n:"Tiba0200",s:"Williams",wc:false},
+  {n:"ciclo_siderale4",s:"Mercedes",wc:false},
+  {n:"VALERMATE",s:"Alpine",wc:false},
+  {n:"F1MD_SILVER",s:"Ferrari",wc:false},
+  {n:"Fari_03_",s:"Audi",wc:false},
+  {n:"Sid_Bicius",s:"Audi",wc:false},
+  {n:"VVR_MettaS",s:"McLaren",wc:false},
+  {n:"paolo86corti",s:"Aston Martin",wc:false},
+  {n:"Wkr_Euxx_86",s:"Cadillac",wc:false},
+  {n:"bepe80638",s:"Wild Card",wc:true},
+  {n:"LucaPH94",s:"Wild Card",wc:true},
+];
+
+const RACES=[
+  {id:"AUS",gp:"Australia",date:"29 set",spr:false,pres:17,rit:3,sc:"Ridotta",fl:"",
+   res:[{pos:1,p:"Chiatto1993",s:"Oracle Red Bull Racing",pts:25},{pos:2,p:"Lillo1990",s:"Ferrari",pts:20},{pos:3,p:"YopGodIy",s:"Cadillac",pts:16},{pos:4,p:"G_OLEG1902",s:"Haas",pts:13},{pos:5,p:"VVR_Kiro77",s:"McLaren",pts:11},{pos:6,p:"ilMilton",s:"Alpine",pts:10},{pos:7,p:"JustDouble_J",s:"Haas",pts:9},{pos:8,p:"VVR_MisterRed",s:"Racing Bulls",pts:8},{pos:9,p:"Millur139",s:"Oracle Red Bull Racing",pts:7},{pos:10,p:"VVR_Skikky666",s:"Mercedes",pts:6},{pos:11,p:"Tiba0200",s:"Williams",pts:5},{pos:12,p:"ciclo_siderale4",s:"Mercedes",pts:4},{pos:13,p:"VALERMATE",s:"Alpine",pts:3},{pos:14,p:"F1MD_SILVER",s:"Ferrari",pts:2},{pos:"RIT",p:"Fari_03_",s:"Audi",pts:0},{pos:"RIT",p:"Sid_Bicius",s:"Audi",pts:0},{pos:"RIT",p:"VVR_MettaS",s:"McLaren",pts:0}]},
+  {id:"SPR_CINA",gp:"Cina",date:"6 ott",spr:true,pres:17,rit:1,sc:"Standard",fl:"",
+   res:[{pos:1,p:"YopGodIy",s:"Cadillac",pts:12},{pos:2,p:"Lillo1990",s:"Ferrari",pts:9},{pos:3,p:"G_OLEG1902",s:"Haas",pts:7},{pos:4,p:"VVR_Skikky666",s:"Mercedes",pts:6},{pos:5,p:"ciclo_siderale4",s:"Mercedes",pts:5},{pos:6,p:"Chiatto1993",s:"Oracle Red Bull Racing",pts:4},{pos:7,p:"LucaPH94",s:"Wild Card",pts:3},{pos:8,p:"ilMilton",s:"Alpine",pts:2},{pos:9,p:"Millur139",s:"Oracle Red Bull Racing",pts:1},{pos:10,p:"F1MD_SILVER",s:"Ferrari",pts:0},{pos:11,p:"Tiba0200",s:"Williams",pts:0},{pos:12,p:"Sid_Bicius",s:"Audi",pts:0},{pos:13,p:"VALERMATE",s:"Alpine",pts:0},{pos:14,p:"VVR_Kiro77",s:"McLaren",pts:0},{pos:15,p:"VVR_MisterRed",s:"Racing Bulls",pts:0},{pos:16,p:"VVR_MettaS",s:"McLaren",pts:0},{pos:"RIT",p:"Fari_03_",s:"Audi",pts:0}]},
+  {id:"CINA",gp:"Cina",date:"13 ott",spr:false,pres:17,rit:4,sc:"Standard",fl:"G_OLEG1902",
+   res:[{pos:1,p:"Chiatto1993",s:"Oracle Red Bull Racing",pts:25,gr:2,st:1,gap:"46:07.291"},{pos:2,p:"YopGodIy",s:"Cadillac",pts:20,gr:3,st:1,gap:"+11.176"},{pos:3,p:"Lillo1990",s:"Ferrari",pts:16,gr:4,st:1,gap:"+14.624"},{pos:4,p:"VVR_Kiro77",s:"McLaren",pts:13,gr:6,st:1,gap:"+35.160"},{pos:5,p:"VVR_MisterRed",s:"Racing Bulls",pts:11,gr:11,st:1,gap:"+40.248"},{pos:6,p:"VVR_Skikky666",s:"Mercedes",pts:10,gr:13,st:1,gap:"+49.770"},{pos:7,p:"Millur139",s:"Oracle Red Bull Racing",pts:9,gr:8,st:1,gap:"+59.797"},{pos:8,p:"VVR_MettaS",s:"McLaren",pts:8,gr:10,st:1,gap:"+1:00.723"},{pos:9,p:"Tiba0200",s:"Williams",pts:7,gr:14,st:2,gap:"+1:07.848"},{pos:10,p:"ilMilton",s:"Alpine",pts:6,gr:9,st:3,gap:"+1 giro"},{pos:11,p:"F1MD_SILVER",s:"Ferrari",pts:5,gr:15,st:3,gap:"+1 giro"},{pos:12,p:"VALERMATE",s:"Alpine",pts:4,gr:16,st:3,gap:"+2 giri"},{pos:13,p:"Fari_03_",s:"Audi",pts:0,gr:17,st:1,gap:"+3 giri"},{pos:"RIT",p:"ciclo_siderale4",s:"Mercedes",pts:0,gr:5,st:2,gap:"RIT"},{pos:"RIT",p:"G_OLEG1902",s:"Haas",pts:0,gr:1,st:1,gap:"RIT",fl:true},{pos:"RIT",p:"Sid_Bicius",s:"Audi",pts:0,gr:12,st:1,gap:"RIT"},{pos:"RIT",p:"LucaPH94",s:"Wild Card",pts:0,gr:7,st:0,gap:"RIT"}]},
+];
+
+const CAL=[
+  {id:"AUS",n:"1",gp:"Australia",date:"29 set",spr:false,done:true,winner:"Chiatto1993"},
+  {id:"SPR_CINA",n:"2s",gp:"Cina Spr.",date:"6 ott",spr:true,done:true,winner:"YopGodIy"},
+  {id:"CINA",n:"2",gp:"Cina GP",date:"13 ott",spr:false,done:true,winner:"Chiatto1993"},
+  {n:"3",gp:"Giappone",date:"20 ott",spr:false,done:false,next:true},
+  {n:"4s",gp:"Miami Spr.",date:"27 ott",spr:true,done:false},{n:"4",gp:"Miami GP",date:"27 ott",spr:false,done:false},
+  {n:"5s",gp:"Canada Spr.",date:"3 nov",spr:true,done:false},{n:"5",gp:"Canada GP",date:"3 nov",spr:false,done:false},
+  {n:"6",gp:"Monaco",date:"10 nov",spr:false,done:false},{n:"7",gp:"Barcellona",date:"17 nov",spr:false,done:false},
+  {n:"8",gp:"Austria",date:"24 nov",spr:false,done:false},{n:"9s",gp:"GB Spr.",date:"1 dic",spr:true,done:false},
+  {n:"9",gp:"G.Bretagna",date:"1 dic",spr:false,done:false},{n:"10",gp:"Belgio",date:"8 dic",spr:false,done:false},
+  {n:"11",gp:"Ungheria",date:"15 dic",spr:false,done:false},{n:"12s",gp:"PB Spr.",date:"22 dic",spr:true,done:false},
+  {n:"12",gp:"P.Bassi",date:"22 dic",spr:false,done:false},{n:"13",gp:"Italia",date:"12 gen",spr:false,done:false},
+  {n:"14",gp:"Spagna",date:"19 gen",spr:false,done:false},{n:"15",gp:"Azerbaigian",date:"26 gen",spr:false,done:false},
+  {n:"16s",gp:"SNG Spr.",date:"2 feb",spr:true,done:false},{n:"16",gp:"Singapore",date:"2 feb",spr:false,done:false},
+  {n:"17",gp:"USA",date:"9 feb",spr:false,done:false},{n:"18",gp:"Messico",date:"16 feb",spr:false,done:false},
+];
+
+/* COMPUTE — podi/vitt/ritiri/FL solo gare normali */
+function compute(){
+  const pts={},gare={},med_sum={},w={},po={},r={},fl={};
+  DM.forEach(d=>{[pts,gare,med_sum,w,po,r,fl].forEach(o=>o[d.n]=0);});
+  RACES.forEach(race=>{
+    race.res.forEach(x=>{
+      if(pts[x.p]===undefined)[pts,gare,med_sum,w,po,r,fl].forEach(o=>o[x.p]=0);
+      pts[x.p]+=x.pts;
+      if(!race.spr){
+        // solo gare normali per queste statistiche
+        if(x.pos!=="RIT") gare[x.p]++;
+        else r[x.p]++;
+        if(x.pos===1) w[x.p]++;
+        if(typeof x.pos==="number"&&x.pos<=3) po[x.p]++;
+        if(x.fl) fl[x.p]++;
+      } else {
+        // sprint: contiamo solo per media punti totale
+      }
+    });
+  });
+  // media punti su tutte le gare (sprint incluse) in cui il pilota ha partecipato
+  const allGare={};
+  DM.forEach(d=>allGare[d.n]=0);
+  RACES.forEach(race=>{race.res.forEach(x=>{
+    if(allGare[x.p]===undefined)allGare[x.p]=0;
+    allGare[x.p]++;
+  });});
+  const med={};
+  DM.forEach(d=>{med[d.n]=allGare[d.n]>0?(pts[d.n]/allGare[d.n]).toFixed(1):"—";});
+  return{pts,gare,w,po,r,fl,med};
+}
+function computeTeam(){const t={};RACES.forEach(race=>{race.res.forEach(x=>{t[x.s]=(t[x.s]||0)+x.pts;});});return t;}
+
+const C=compute(),TP=computeTeam();
+const dSrt=[...DM].sort((a,b)=>C.pts[b.n]-C.pts[a.n]);
+const tSrt=Object.entries(TP).sort((a,b)=>b[1]-a[1]);
+const ldP=C.pts[dSrt[0].n],ldT=tSrt[0][1];
+
+/* GP LIST */
+RACES.forEach((r,i)=>{
+  const win=r.res.find(x=>x.pos===1);
+  document.getElementById('gp-list').innerHTML+=`<div class="gpitem" onclick="showGP('${r.id}')">
+    <div class="gpbdg ${r.spr?'sp':'rc'}">${i+1}</div>
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.3px">${r.gp}${r.spr?' <span style="font-size:9px;color:var(--gold);letter-spacing:1px">SPRINT</span>':''}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px">${r.date}&nbsp;·&nbsp;${r.pres} al via&nbsp;·&nbsp;${r.rit} ritiri</div>
+      ${win?'<div style="font-size:10px;font-weight:700;color:var(--muted);margin-top:2px">VINCITORE <span style="color:var(--text)">'+win.p+'</span></div>':''}
+    </div>
+    <svg class="chev" width="6" height="11" viewBox="0 0 6 11" fill="none"><path d="M1 1l4 4.5-4 4.5" stroke="#CCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>`;
+});
+
+/* SHOW GP */
+function showGP(id,fromSeason){
+  const race=RACES.find(x=>x.id===id);if(!race)return;
+  const win=race.res.find(x=>x.pos===1),p2=race.res.find(x=>x.pos===2),p3=race.res.find(x=>x.pos===3);
+  const hasX=race.res[0].gr!==undefined;
+  const xTh=hasX?'<th style="text-align:center">Grl</th><th style="text-align:center">Sst</th><th>Dist.</th>':'';
+  const bFn=fromSeason?"backToSeason()":"backToGPList()";
+  const rows=race.res.map(x=>{
+    const pc=pcls(x.pos),pL=x.pos==="RIT"?"RIT":x.pos;
+    const bc=race.spr?"spr":(x.pts>0?"race":"z");
+    return`<tr>
+      <td><span class="pn ${pc}">${pL}</span></td>
+      <td style="font-weight:700;text-transform:uppercase;letter-spacing:0.2px">${x.p}${x.fl?'<span class="fldot"></span>':''}</td>
+      <td><span class="dot" style="background:${tc(x.s)}"></span><span style="font-size:10px;color:var(--muted)">${x.s}</span></td>
+      ${hasX?`<td style="font-size:10px;color:var(--dim);text-align:center">${x.gr||'—'}</td><td style="font-size:10px;color:var(--dim);text-align:center">${x.st!==undefined?x.st:'—'}</td><td style="font-size:10px;color:var(--dim)">${x.gap||'—'}</td>`:''}
+      <td style="text-align:right"><span class="ptsbdg ${bc}">${x.pts}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('gp-list-view').style.display='none';
+  document.getElementById('gp-detail-view').style.display='block';
+  document.getElementById('gp-detail-view').innerHTML=`
+    <div class="hero">
+      <div class="hero-lbl">${race.spr?'Sprint Race':'Gara'}&nbsp;·&nbsp;${race.date}</div>
+      <div class="hero-name">GP ${race.gp}</div>
+      <div class="pills">
+        <span class="pill pill-dk">${race.pres} al via</span>
+        <span class="pill pill-dk">${race.rit} ritiri</span>
+        ${race.sc?'<span class="pill pill-dk">SC '+race.sc+'</span>':''}
+        ${race.fl?'<span class="pill pill-pu">FL '+race.fl+'</span>':''}
+      </div>
+    </div>
+    <div class="card" style="border-top:none;margin-top:0;">
+      <div class="podium">
+        <div class="pod"><div class="pod-name">${p2?p2.p:'—'}</div><div class="pod-team">${p2?p2.s:'—'}</div><div class="pod-blk p2">2</div></div>
+        <div class="pod"><div class="pod-name">${win?win.p:'—'}</div><div class="pod-team" style="color:var(--gold)">${win?win.s:'—'}</div><div class="pod-blk p1">1</div></div>
+        <div class="pod"><div class="pod-name">${p3?p3.p:'—'}</div><div class="pod-team">${p3?p3.s:'—'}</div><div class="pod-blk p3">3</div></div>
+      </div>
+      <table class="tbl" style="margin-top:10px;">
+        <thead><tr><th>Pos</th><th>Pilota</th><th>Scuderia</th>${xTh}<th style="text-align:right">Pti</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <button class="backbar" onclick="${bFn}">‹ Indietro</button>`;
+  if(fromSeason){
+    document.getElementById('tab-stagione').style.display='none';
+    document.getElementById('tab-gp').style.display='block';
+    document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  }
+}
+function backToGPList(){document.getElementById('gp-detail-view').style.display='none';document.getElementById('gp-list-view').style.display='block';}
+function backToSeason(){backToGPList();document.getElementById('tab-gp').style.display='none';document.getElementById('tab-stagione').style.display='block';document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===2));}
+
+/* DRIVER STANDINGS */
+dSrt.forEach((d,i)=>{
+  const pos=i+1,pc=pos===1?"p1":pos===2?"p2":pos===3?"p3":"";
+  const p=C.pts[d.n],delta=i>0?ldP-p:null;
+  document.getElementById('drv-std').innerHTML+=`<div class="srow cl" onclick="showDriver('${d.n}','classifica')">
+    <div class="spos ${pc}">${pos}</div>
+    <div style="flex:1"><div class="sname">${d.n}${d.wc?'<span class="wc">WC</span>':''}</div><div class="steam"><span class="dot" style="background:${tc(d.s)}"></span>${d.s}</div></div>
+    ${delta!==null?'<div class="sdelta">–'+delta+'</div>':'<div class="sdelta" style="color:var(--gold);font-weight:800;font-size:10px;letter-spacing:1px">LDR</div>'}
+    <div style="text-align:right"><div class="spts">${p}</div><div class="slbl">PTS</div></div>
+  </div>`;
+});
+
+/* CONSTRUCTOR STANDINGS */
+tSrt.forEach(([team,pts],i)=>{
+  const pos=i+1,pc=pos===1?"p1":pos===2?"p2":pos===3?"p3":"";
+  const delta=i>0?ldT-pts:null;
+  document.getElementById('ctr-std').innerHTML+=`<div class="srow">
+    <div class="spos ${pc}">${pos}</div>
+    <div style="flex:1;display:flex;align-items:center;gap:10px"><div class="tstripe" style="background:${tc(team)}"></div><div class="sname" style="font-size:12px">${team}</div></div>
+    ${delta!==null?'<div class="sdelta">–'+delta+'</div>':'<div class="sdelta" style="color:var(--gold);font-weight:800;font-size:10px;letter-spacing:1px">LDR</div>'}
+    <div style="text-align:right"><div class="spts">${pts}</div><div class="slbl">PTS</div></div>
+  </div>`;
+});
+
+/* SEASON GRID */
+const rHdr=RACES.map(r=>`<th>${r.spr?'<span style="color:var(--gold)">(S)</span> ':''}${r.gp.slice(0,5)}<br><span style="font-weight:400;font-size:7px;letter-spacing:0">${r.date}</span></th>`).join('');
+let sg=`<thead><tr><th class="pc">Pilota</th><th style="text-align:center;min-width:22px">#</th>${rHdr}<th>Pts</th></tr></thead><tbody>`;
+dSrt.forEach((d,i)=>{
+  const pos=i+1,pC=pos===1?'var(--gold)':pos===2?'#888':pos===3?'#A0522D':'var(--dim)';
+  const cells=RACES.map(race=>{
+    const x=race.res.find(r=>r.p===d.n);if(!x)return'<td><span class="gn">—</span></td>';
+    const v=x.pos,t=v==="RIT"?"R":v;let cl='';
+    if(v===1)cl='g1';else if(v===2)cl='g2';else if(v===3)cl='g3';else if(v==="RIT")cl='gr';else if(race.spr)cl='gs';
+    return`<td>${cl?'<span class="'+cl+'">'+t+'</span>':'<span style="color:var(--muted)">'+t+'</span>'}</td>`;
+  }).join('');
+  sg+=`<tr><td class="pc" onclick="showDriver('${d.n}','stagione')"><span class="dot" style="background:${tc(d.s)}"></span>${d.n}${d.wc?'<span class="wc">WC</span>':''}</td><td style="text-align:center;font-weight:800;font-size:11px;color:${pC}">${pos}</td>${cells}<td style="font-weight:800;font-size:11px">${C.pts[d.n]}</td></tr>`;
+});
+sg+='</tbody>';
+document.getElementById('season-grid').innerHTML=sg;
+
+/* CALENDAR */
+let ch='<div class="cgrid">';
+CAL.forEach(r=>{
+  const cls=r.done?'done':(r.next?'nxt':'up');
+  const oc=r.done&&r.id?`onclick="showGP('${r.id}',true)"`:'';
+  ch+=`<div class="rcell ${cls}" ${oc}>
+    <div class="rn">${r.n}${r.spr?'<span style="color:var(--gold)"> S</span>':''}</div>
+    <div class="rg">${r.gp.length>8?r.gp.slice(0,8)+'…':r.gp}</div>
+    <div class="rd">${r.date}</div>
+    ${r.done&&r.winner?'<div class="rw">'+r.winner.split('_')[0]+'</div>':''}
+    ${r.next?'<div class="rnl">Next</div>':''}
+  </div>`;
+});
+ch+='</div>';
+document.getElementById('cal-grid').innerHTML=ch;
+
+/* PILOTI LIST */
+dSrt.forEach((d,i)=>{
+  const pos=i+1,pc=pos===1?"p1":pos===2?"p2":pos===3?"p3":"";
+  document.getElementById('piloti-list').innerHTML+=`<div class="srow cl" onclick="showDriver('${d.n}','piloti')">
+    <div class="spos ${pc}">${pos}</div>
+    <div style="display:flex;align-items:center;gap:10px;flex:1">
+      <div class="drvatr" style="width:36px;height:36px;font-size:11px;background:${tc(d.s)}">${ini(d.n)}</div>
+      <div style="flex:1"><div class="sname">${d.n}${d.wc?' <span class="wc">WC</span>':''}</div><div class="steam"><span class="dot" style="background:${tc(d.s)}"></span>${d.s}</div></div>
+    </div>
+    <div style="text-align:right;margin-right:10px"><div style="font-size:11px;font-weight:700;color:var(--dim)">P${pos}</div><div class="slbl">Class.</div></div>
+    <div style="text-align:right"><div class="spts">${C.pts[d.n]}</div><div class="slbl">PTS</div></div>
+    <svg class="chev" width="6" height="11" viewBox="0 0 6 11" fill="none"><path d="M1 1l4 4.5-4 4.5" stroke="#CCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>`;
+});
+
+/* DRIVER DETAIL — ordine: Punti, Media | Podi, Vittorie | Ritiri, Giri Veloci */
+function showDriver(name,from){
+  const d=DM.find(x=>x.n===name);
+  const pts=C.pts[name]||0,wi=C.w[name]||0,po=C.po[name]||0,re=C.r[name]||0,fl=C.fl[name]||0,med=C.med[name]||"—";
+  const posC=dSrt.findIndex(x=>x.n===name)+1;
+  const rrows=RACES.map(race=>{
+    const x=race.res.find(r=>r.p===name);if(!x)return'';
+    const pc=pcls(x.pos),pL=x.pos==="RIT"?"RIT":x.pos;
+    return`<tr>
+      <td style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2px">${race.gp}${race.spr?' <span style="font-size:8px;color:var(--gold)">[S]</span>':''}</td>
+      <td style="text-align:center"><span class="pn ${pc}" style="width:20px;height:20px;font-size:10px">${pL}</span></td>
+      <td style="text-align:center">${x.pts>0?'<span class="ptsbdg '+(race.spr?"spr":"race")+'">'+x.pts+'</span>':'<span style="color:var(--dim)">—</span>'}</td>
+      <td style="text-align:center;font-size:10px;color:var(--dim)">${x.gr||'—'}</td>
+    </tr>`;
+  }).join('');
+  const bFn=from==='classifica'?"bkClass()":from==='stagione'?"bkStagione()":"bkList()";
+  const html=`
+    <div class="drvhdr">
+      <button class="backbtn" onclick="${bFn}">‹</button>
+      <div class="drvatr" style="background:${tc(d.s)}">${ini(d.n)}</div>
+      <div><div class="drvname">${d.n}${d.wc?' <span class="wc">WC</span>':''}</div><div class="drvteam">${d.s}</div></div>
+    </div>
+    <div style="padding:12px;">
+      <div class="sgrid2">
+        <div class="sc"><div class="sc-lbl">Punti</div><div class="sc-val">${pts}</div></div>
+        <div class="sc"><div class="sc-lbl">Media punti</div><div class="sc-val" style="font-size:18px">${med}</div></div>
+        <div class="sc"><div class="sc-lbl">Podi <span style="font-size:8px;color:var(--dim)">(solo gare)</span></div><div class="sc-val">${po}</div></div>
+        <div class="sc"><div class="sc-lbl">Vittorie <span style="font-size:8px;color:var(--dim)">(solo gare)</span></div><div class="sc-val" style="color:${wi>0?'var(--gold)':'var(--text)'}">${wi}</div></div>
+        <div class="sc"><div class="sc-lbl">Ritiri <span style="font-size:8px;color:var(--dim)">(solo gare)</span></div><div class="sc-val" style="color:${re>0?'var(--red)':'var(--text)'}">${re}</div></div>
+        <div class="sc"><div class="sc-lbl">Giri veloci <span style="font-size:8px;color:var(--dim)">(solo gare)</span></div><div class="sc-val" style="color:${fl>0?'#9B30FF':'var(--text)'}">${fl}</div></div>
+      </div>
+      <div class="sec">Risultati gara per gara</div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>GP</th><th style="text-align:center">Pos</th><th style="text-align:center">Pti</th><th style="text-align:center">Grl</th></tr></thead>
+          <tbody>${rrows||'<tr><td colspan="4" style="text-align:center;color:var(--dim);padding:16px;font-size:12px">Nessun risultato</td></tr>'}</tbody>
+        </table>
+      </div>
+      <button class="backbar" onclick="${bFn}">‹ Indietro</button>
+    </div>`;
+
+  if(from==='classifica'){
+    document.querySelectorAll('#tab-classifica>*').forEach(el=>el.style.display='none');
+    const tmp=document.createElement('div');tmp.id='dtmp';tmp.innerHTML=html;
+    document.getElementById('tab-classifica').appendChild(tmp);
+  } else if(from==='stagione'){
+    document.getElementById('tab-stagione').style.display='none';
+    document.getElementById('tab-piloti').style.display='block';
+    document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===3));
+    document.getElementById('piloti-list-view').style.display='none';
+    document.getElementById('piloti-detail-view').innerHTML=html;
+    document.getElementById('piloti-detail-view').style.display='block';
+  } else {
+    document.getElementById('piloti-list-view').style.display='none';
+    document.getElementById('piloti-detail-view').innerHTML=html;
+    document.getElementById('piloti-detail-view').style.display='block';
+  }
+}
+function bkList(){document.getElementById('piloti-detail-view').style.display='none';document.getElementById('piloti-list-view').style.display='block';}
+function bkClass(){document.getElementById('dtmp')?.remove();document.querySelectorAll('#tab-classifica>*').forEach(el=>el.style.display='');}
+function bkStagione(){bkList();document.getElementById('tab-piloti').style.display='none';document.getElementById('tab-stagione').style.display='block';document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===2));}
+
+function showTab(id,btn){
+  ['gp','classifica','stagione','piloti'].forEach(t=>document.getElementById('tab-'+t).style.display=t===id?'block':'none');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(id==='piloti'){document.getElementById('piloti-detail-view').style.display='none';document.getElementById('piloti-list-view').style.display='block';}
+  if(id==='gp'){document.getElementById('gp-detail-view').style.display='none';document.getElementById('gp-list-view').style.display='block';}
+  if(id==='classifica'){document.getElementById('dtmp')?.remove();document.querySelectorAll('#tab-classifica>*').forEach(el=>el.style.display='');}
+}
+['classifica','stagione','piloti'].forEach(t=>document.getElementById('tab-'+t).style.display='none');
+</script>
+</body>
+</html>
