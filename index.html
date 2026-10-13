@@ -175,7 +175,7 @@ const media=n=>S[n].rn?(S[n].rpts/S[n].rn).toFixed(1):"—";
 /* --- navigazione con storico per il tasto Indietro --- */
 let cur={t:"gp"}, hist=[];
 function showTab(t){hist=[];render({t});}
-function open(st){hist.push(cur);render(st);}
+function go(st){hist.push(cur);render(st);}
 function back(){render(hist.pop()||{t:cur.t});}
 function render(st){
   cur=st;
@@ -192,7 +192,7 @@ function gpList(){
   return '<div class="sec">Gare disputate — tocca per l\'arrivo</div><div class="card">'+
   DONE.map(e=>{
     const w=e.res.find(r=>r.pos===1), rit=e.res.filter(r=>r.pos==="RIT").length;
-    return `<div class="gpitem" onclick="open({t:'gp',gp:'${e.id}'})">
+    return `<div class="gpitem" onclick="go({t:'gp',gp:'${e.id}'})">
       <div class="gpbdg ${e.spr?'spr':''}">${e.round}${e.spr?'S':''}</div>
       <div style="flex:1;min-width:0"><div class="gpn">${e.gp}${e.spr?'<small>SPRINT</small>':''}</div>
       <div class="gps">${e.date} · ${e.res.length} al via · ${rit} ritiri</div>
@@ -205,7 +205,7 @@ function gpDetail(id){
   const X=e.res.some(r=>r.gr!==undefined);
   const flr=e.res.find(r=>r.fl), rit=e.res.filter(r=>r.pos==="RIT").length;
   const pod=(r,c)=>`<div class="pod"><div class="pod-name">${r?r.p:'—'}</div><div class="pod-team"${c==='p1'?' style="color:var(--gold)"':''}>${r?r.s:''}</div><div class="pod-blk ${c}">${c[1]}</div></div>`;
-  const rows=e.res.map(r=>`<tr class="cl" onclick="open({t:'pi',drv:'${r.p}'})">
+  const rows=e.res.map(r=>`<tr class="cl" onclick="go({t:'pi',drv:'${r.p}'})">
     <td><span class="pn ${pc(r.pos)}">${r.pos}</span></td>
     <td><div class="dn">${r.p}${r.fl?'<span class="fl"></span>':''}${wc(r.p)}</div><div class="dt"><span class="dot" style="background:${tc(r.s)}"></span>${r.s}</div></td>
     ${X?`<td class="num">${r.gr??'—'}</td><td class="num st">${r.st??'—'}</td><td class="gap">${r.gap??'—'}</td>`:''}
@@ -225,7 +225,7 @@ function gpDetail(id){
 function classifica(){
   const lead=S[DS[0].n].pts;
   const dr=DS.map((d,i)=>{const p=S[d.n].pts,c=pc(i+1);
-    return `<div class="srow cl" onclick="open({t:'pi',drv:'${d.n}'})"><div class="spos ${c}">${i+1}</div>
+    return `<div class="srow cl" onclick="go({t:'pi',drv:'${d.n}'})"><div class="spos ${c}">${i+1}</div>
     <div style="flex:1;min-width:0"><div class="sname">${d.n}${wc(d.n)}</div><div class="steam"><span class="dot" style="background:${tc(d.s)}"></span>${d.s}</div></div>
     ${i?`<div class="sdelta">–${lead-p}</div>`:'<div class="sdelta ldr">LDR</div>'}
     <div><div class="spts">${p}</div><div class="slbl">Pts</div></div></div>`;}).join('');
@@ -255,11 +255,11 @@ function stagione(){
       const k=r.pos===1?'g1':r.pos===2?'g2':r.pos===3?'g3':r.pos==="RIT"?'gr':'';
       const txt=r.pos==="RIT"?"R":r.pos;
       return `<td>${k?`<span class="${k}">${txt}</span>`:`<span style="color:${e.spr?'var(--gold)':'var(--muted)'};font-weight:${e.spr?700:400}">${txt}</span>`}</td>`;}).join('');
-    return `<tr><td class="pc" onclick="open({t:'pi',drv:'${d.n}'})"><span class="dot" style="background:${tc(d.s)}"></span>${d.n}${wc(d.n)}</td>
+    return `<tr><td class="pc" onclick="go({t:'pi',drv:'${d.n}'})"><span class="dot" style="background:${tc(d.s)}"></span>${d.n}${wc(d.n)}</td>
       <td style="font-weight:800;font-size:11px;color:${pcol}">${i+1}</td>${cells}<td style="font-weight:800;font-size:11px">${S[d.n].pts}</td></tr>`;}).join('');
   const cal=EV.map(e=>{
     const w=e.res&&e.res.find(r=>r.pos===1), cls=e.res?'done':(e===next?'nxt':'up');
-    return `<div class="rc ${cls}" ${e.res?`onclick="open({t:'gp',gp:'${e.id}'})"`:''}>
+    return `<div class="rc ${cls}" ${e.res?`onclick="go({t:'gp',gp:'${e.id}'})"`:''}>
       <div class="rn">R${e.round}${e.spr?' <b>(S)</b>':''}</div><div class="rg">${e.gp}</div><div class="rd">${e.date}</div>
       ${w?`<div class="rw">${w.p}</div>`:''}${e===next?'<div class="rx">NEXT</div>':''}</div>`;}).join('');
   return cards+`<div class="sec">Andamento stagione — tocca un pilota</div>
@@ -270,7 +270,7 @@ function stagione(){
 /* --- Piloti --- */
 function pilotiList(){
   return '<div class="sec">Seleziona un pilota</div><div class="card">'+DS.map((d,i)=>`
-    <div class="srow cl" onclick="open({t:'pi',drv:'${d.n}'})"><div class="spos ${pc(i+1)}">${i+1}</div>
+    <div class="srow cl" onclick="go({t:'pi',drv:'${d.n}'})"><div class="spos ${pc(i+1)}">${i+1}</div>
     <div class="av" style="width:34px;height:34px;font-size:11px;background:${tc(d.s)}">${d.n.slice(0,2).toUpperCase()}</div>
     <div style="flex:1;min-width:0"><div class="sname">${d.n}${wc(d.n)}</div><div class="steam"><span class="dot" style="background:${tc(d.s)}"></span>${d.s}</div></div>
     <div><div class="spts">${S[d.n].pts}</div><div class="slbl">Pts</div></div>${chev}</div>`).join('')+'</div>';
@@ -279,7 +279,7 @@ function drvDetail(n){
   const d=DRV[n], s=S[n];
   const box=(l,v,col)=>`<div class="sc"><div class="sc-lbl">${l}</div><div class="sc-val"${col?` style="color:${col}"`:''}>${v}</div></div>`;
   const rows=DONE.map(e=>{const r=e.res.find(x=>x.p===n); if(!r) return '';
-    return `<tr class="cl" onclick="open({t:'gp',gp:'${e.id}'})"><td><div class="dn" style="font-size:11px">${e.gp}${e.spr?' <span style="color:var(--gold)">(S)</span>':''}</div><div class="dt">${e.date}</div></td>
+    return `<tr class="cl" onclick="go({t:'gp',gp:'${e.id}'})"><td><div class="dn" style="font-size:11px">${e.gp}${e.spr?' <span style="color:var(--gold)">(S)</span>':''}</div><div class="dt">${e.date}</div></td>
       <td class="num"><span class="pn ${pc(r.pos)}">${r.pos}</span></td><td class="num">${r.gr??'—'}</td>
       <td><span class="pb ${r.pts?(e.spr?'spr':'race'):'z'}">${r.pts}</span></td></tr>`;}).join('');
   return `<div class="dh stripes"><div class="av" style="background:${tc(d.s)}">${n.slice(0,2).toUpperCase()}</div>
