@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--red:#E10600;--gold:#C4922A;--ribbon:#15151E;--bg:#F4F4F4;--surface:#FFF;--surface2:#F0F0F0;--border:#E4E4E4;--text:#15151E;--muted:#6B6B6B;--dim:#A0A0A0;--purple:#9B30FF;}
+:root{--red:#E10600;--gold:#C4922A;--ribbon:#15151E;--bg:#F4F4F4;--surface:#FFF;--surface2:#F0F0F0;--border:#E4E4E4;--text:#15151E;--muted:#6B6B6B;--dim:#6E6E6E;--purple:#9B30FF;}
 html{-webkit-text-size-adjust:100%;}
 body{background:var(--bg);color:var(--text);font-family:'Titillium Web',system-ui,sans-serif;min-height:100vh;}
 .in,#main{max-width:480px;margin:0 auto;}
@@ -89,7 +89,9 @@ body{background:var(--bg);color:var(--text);font-family:'Titillium Web',system-u
 .gt .pc{text-align:left;position:sticky;left:0;z-index:1;background:var(--surface);border-right:1px solid var(--border);}
 .gt th.pc{background:var(--surface2);z-index:2;}
 .gt td.pc{font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;}
-.gt .spr-h{color:var(--gold);}
+.gt .spr-h{color:#85600F;}
+.rt th,.gt th{color:#3F3F46;}
+.gpos{display:inline-block;width:18px;text-align:right;margin-right:9px;font-weight:800;}
 .g1{background:rgba(196,146,42,.2);color:#8A6010;font-weight:800;padding:1px 4px;}
 .g2{background:rgba(136,136,136,.15);color:#555;font-weight:700;padding:1px 4px;}
 .g3{background:rgba(160,82,45,.13);color:#8A4010;font-weight:700;padding:1px 4px;}
@@ -107,6 +109,7 @@ body{background:var(--bg);color:var(--text);font-family:'Titillium Web',system-u
 /* gp list */
 .gpitem{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;gap:12px;}
 .gpitem:last-child{border-bottom:none;}
+.gpcol:not(:last-child) .gpitem:last-child,.pcol:not(:last-child) .srow:last-child{border-bottom:1px solid var(--border);}
 .gpbdg{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;color:#fff;background:var(--ribbon);}
 .gpbdg.spr{background:var(--gold);}
 .gpn{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;}
@@ -123,14 +126,20 @@ body{background:var(--bg);color:var(--text);font-family:'Titillium Web',system-u
 .tcard{border-top:none;border-radius:0 0 4px 4px;}
 .cols>div+div>.sec,.dd>div+div>.sec{margin-top:18px;}
 @media (min-width:760px){
+ body{zoom:1.1;}
  .in,#main{max-width:1600px;}
  #main{padding:20px 24px;}
  .ribbon .in{padding:14px 24px;}
  .tabs .in{padding:0 12px;}
  .tab{flex:0 0 auto;padding:14px 22px 12px;font-size:12px;}
- .plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px;background:none;border:none;overflow:visible;}
- .gplist{display:block;column-width:320px;column-gap:10px;background:none;border:none;overflow:visible;}
- .gplist .gpitem{break-inside:avoid;margin-bottom:10px;}
+ .plist{display:flex;background:none;border:none;overflow:visible;}
+ .pcol{flex:1 1 0;min-width:0;padding:0 22px;border-left:3px solid var(--ribbon);}
+ .pcol:first-child{padding-left:0;border-left:none;} .pcol:last-child{padding-right:0;}
+ .plist .srow{margin-bottom:10px;}
+ .gplist{display:flex;background:none;border:none;overflow-x:auto;}
+ .gpcol{flex:0 1 380px;min-width:230px;padding:0 22px;border-left:3px solid var(--ribbon);}
+ .gpcol:first-child{padding-left:0;border-left:none;}
+ .gplist .gpitem{margin-bottom:10px;}
  .gplist .gpitem,.plist .srow,.gplist .gpitem:last-child,.plist .srow:last-child{background:var(--surface);border:1px solid var(--border);border-radius:4px;}
  .sg{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));}
  .cgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr));}
@@ -148,6 +157,9 @@ body{background:var(--bg);color:var(--text);font-family:'Titillium Web',system-u
  .dd .sg{grid-template-columns:repeat(3,1fr);}
  .back{max-width:320px;}
 }
+@media (min-width:1200px){ body{zoom:1.2;} }
+@media (min-width:1500px){ body{zoom:1.3;} }
+@media (min-width:1800px){ body{zoom:1.35;} }
 </style>
 </head>
 <body>
@@ -219,16 +231,18 @@ function render(st){
 const backBtn=()=>hist.length?'<button class="back" onclick="back()">‹ Indietro</button>':'';
 
 /* --- GP --- */
+const chunkCols=(a,n,c)=>{let o='';for(let i=0;i<a.length;i+=n)o+=`<div class="${c}">`+a.slice(i,i+n).join('')+'</div>';return o;};
+const chunk8=a=>{let o='';for(let i=0;i<a.length;i+=8)o+='<div class="gpcol">'+a.slice(i,i+8).join('')+'</div>';return o;};
 function gpList(){
   return '<div class="sec">Gare disputate — tocca per l\'arrivo</div><div class="card gplist">'+
-  DONE.map(e=>{
+  chunk8(DONE.map(e=>{
     const w=e.res.find(r=>r.pos===1), rit=e.res.filter(r=>r.pos==="RIT").length;
     return `<div class="gpitem" onclick="go({t:'gp',gp:'${e.id}'})">
       <div class="gpbdg ${e.spr?'spr':''}">${e.round}${e.spr?'S':''}</div>
       <div style="flex:1;min-width:0"><div class="gpn">${e.gp}${e.spr?'<small>SPRINT</small>':''}</div>
       <div class="gps">${e.date} · ${e.res.length} al via · ${rit} ${rit===1?'ritiro':'ritiri'}</div>
       ${w?`<div class="gpw">VINCITORE <span>${w.p}</span></div>`:''}</div>${chev}</div>`;
-  }).join('')+'</div>';
+  }))+'</div>';
 }
 function gpDetail(id){
   const e=EV.find(x=>x.id===id);
@@ -274,7 +288,7 @@ function stagione(){
   const L=DS[0];
   const cards=`<div class="sg">
     <div class="sc"><div class="sc-lbl">Gare disputate</div><div class="sc-val">${races}<span style="font-size:13px;color:var(--dim)">/24</span></div><div class="sc-sub">+ ${sprints} sprint</div><div class="prog"><div style="width:${races/24*100}%"></div></div></div>
-    <div class="sc"><div class="sc-lbl">Leader</div><div class="sc-val sm">${L.n}</div><div class="sc-sub">${S[L.n].pts} pti · ${S[L.n].w} vittorie</div></div>
+    <div class="sc"><div class="sc-lbl">Leader</div><div class="sc-val sm">${L.n}</div><div class="sc-sub">${S[L.n].pts} pti · ${S[L.n].w} ${S[L.n].w===1?'vittoria':'vittorie'}</div></div>
     <div class="sc"><div class="sc-lbl">Team leader</div><div class="sc-val sm">${TS[0][0]}</div><div class="sc-sub">${TS[0][1]} punti</div></div>
     <div class="sc"><div class="sc-lbl">Prossima</div><div class="sc-val sm">${next?next.gp:'—'}</div><div class="sc-sub">${next?next.date+(nextGP.some(e=>e.spr&&!e.res)?' · + Sprint':''):'Stagione conclusa'}</div></div></div>`;
   const hdr=DONE.map(e=>`<th${e.spr?' class="spr-h"':''}>${e.spr?'(S) ':''}${e.gp.slice(0,5)}<br><span style="font-weight:400;font-size:7px">${e.date}</span></th>`).join('');
@@ -285,25 +299,24 @@ function stagione(){
       const k=r.pos===1?'g1':r.pos===2?'g2':r.pos===3?'g3':r.pos==="RIT"?'gr':'';
       const txt=r.pos==="RIT"?"R":r.pos;
       return `<td>${k?`<span class="${k}">${txt}</span>`:`<span style="color:${e.spr?'var(--gold)':'var(--muted)'};font-weight:${e.spr?700:400}">${txt}</span>`}</td>`;}).join('');
-    return `<tr><td class="pc" onclick="go({t:'pi',drv:'${d.n}'})"><span class="dot" style="background:${tc(d.s)}"></span>${d.n}${wc(d.n)}</td>
-      <td style="font-weight:800;font-size:11px;color:${pcol}">${i+1}</td>${cells}<td style="font-weight:800;font-size:11px">${S[d.n].pts}</td></tr>`;}).join('');
+    return `<tr><td class="pc" onclick="go({t:'pi',drv:'${d.n}'})"><span class="gpos" style="color:${pcol}">${i+1}</span><span class="dot" style="background:${tc(d.s)}"></span><span class="gname">${d.n}${wc(d.n)}</span></td>${cells}<td style="font-weight:800;font-size:11px">${S[d.n].pts}</td></tr>`;}).join('');
   const cal=EV.map(e=>{
     const w=e.res&&e.res.find(r=>r.pos===1), cls=e.res?'done':(e===next?'nxt':'up');
     return `<div class="rc ${cls}" ${e.res?`onclick="go({t:'gp',gp:'${e.id}'})"`:''}>
       <div class="rn">R${e.round}${e.spr?' <b>(S)</b>':''}</div><div class="rg">${e.gp}</div><div class="rd">${e.date}</div>
       ${w?`<div class="rw">${w.p}</div>`:''}${e===next?'<div class="rx">NEXT</div>':''}</div>`;}).join('');
   return cards+`<div class="sec">Andamento stagione — tocca un pilota</div>
-    <div class="card"><div class="tw"><table class="gt"><thead><tr><th class="pc">Pilota</th><th>#</th>${hdr}<th>Pts</th></tr></thead><tbody>${body}</tbody></table></div></div>
+    <div class="card"><div class="tw"><table class="gt"><thead><tr><th class="pc"><span class="gpos">#</span>Pilota</th>${hdr}<th>Pts</th></tr></thead><tbody>${body}</tbody></table></div></div>
     <div class="sec">Calendario — tocca una gara disputata</div><div class="card"><div class="cgrid">${cal}</div></div>`;
 }
 
 /* --- Piloti --- */
 function pilotiList(){
-  return '<div class="sec">Seleziona un pilota</div><div class="card plist">'+DS.map((d,i)=>`
+  return '<div class="sec">Seleziona un pilota</div><div class="card plist">'+chunkCols(DS.map((d,i)=>`
     <div class="srow cl" onclick="go({t:'pi',drv:'${d.n}'})"><div class="spos ${pc(i+1)}">${i+1}</div>
     <div class="av" style="width:34px;height:34px;font-size:11px;background:${tc(d.s)}">${d.n.slice(0,2).toUpperCase()}</div>
     <div style="flex:1;min-width:0"><div class="sname">${d.n}${wc(d.n)}</div><div class="steam"><span class="dot" style="background:${tc(d.s)}"></span>${d.s}</div></div>
-    <div><div class="spts">${S[d.n].pts}</div><div class="slbl">Pts</div></div>${chev}</div>`).join('')+'</div>';
+    <div><div class="spts">${S[d.n].pts}</div><div class="slbl">Pts</div></div>${chev}</div>`),Math.ceil(DS.length/2),'pcol')+'</div>';
 }
 function drvDetail(n){
   const d=DRV[n], s=S[n];
